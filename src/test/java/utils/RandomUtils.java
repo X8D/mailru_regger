@@ -32,5 +32,18 @@ public class RandomUtils {
         return result.toString();
     }
 
+    public static int getRandomDay(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
 
+    public static int getRandomMonth(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    public static int getRandomInt(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
 }

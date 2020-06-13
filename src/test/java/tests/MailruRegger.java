@@ -11,6 +11,7 @@ package tests;
         import org.junit.jupiter.api.DisplayName;
         import org.junit.jupiter.api.Tag;
         import org.junit.jupiter.api.Test;
+        import org.openqa.selenium.By;
 
         import static com.codeborne.selenide.Condition.exist;
         import static com.codeborne.selenide.Condition.visible;
@@ -36,52 +37,58 @@ package tests;
 //           SelenideLogger.addListener("allure", new AllureSelenide().screenshots(true));
 //       }
 
-        @Test
-        @Description("Registration emails")
-        @DisplayName("Register new email account")
-        void successfulReg() {
-            step("Go to mail.ru and check homepage", ()-> {
-                open("https://mail.ru");
-                $("#signup").shouldBe(visible);
+    @Test
+    @Description("Registration emails")
+    @DisplayName("Register new email account")
+    void successfulReg() {
+        step("Go to mail.ru and check homepage", () -> {
+            open("https://mail.ru");
+            $("#signup").shouldBe(visible);
 
+        });
+
+        step("Fill form and register", () -> {
+            $("#signup").click();
+            switchTo().window(1);
+            $("button[type='submit']").shouldBe(visible);
+
+            //Вбиваем имя и фамилия
+            String randomName = getRandomName(6);
+            $("#fname").setValue(randomName);
+            String randomLastName = getRandomName(7);
+            $("#lname").setValue(randomLastName);
+
+            step("Выбираем день рождения", () -> {
+                $(by("data-test-id","birth-date__day")).click();
+                int randomDay = getRandomInt(1, 28);
+                $(by("data-test-id", "select-value:" + randomDay)).click();
             });
+            //Выбираем месяц рождения
+            $(by("data-test-id","birth-date__month")).click();
+            int randomMonth = getRandomInt(1, 12);
+            $(by("data-test-id", "select-value:" + randomMonth)).click();
+            //Выбираем год рождения
+            $(by("data-test-id","birth-date__year")).click();
+            int randomYear = getRandomInt(1950, 2000);
+            $(by("data-test-id", "select-value:" + randomYear)).click();
 
-            step("Fill form and register", ()-> {
-                $("#signup").click();
-                switchTo().window(1);
-                $x("//button[@type=\"submit\"]").shouldBe(visible);
-                String randomName = getRandomName(6);
-                $("#fname").setValue(randomName);
-                String randomLastName = getRandomName(7);
-                $("#lname").setValue(randomLastName);
+            //random Gender checkbox
+            int genderInputIndex = getRandomInt(0, 1);
+            $(by("data-test-id", "gender-form-field-inner"))
+                    .$("label", genderInputIndex).click();
+//            $("[data-test-id='gender-form-field-inner'] label", genderInputIndex).click();
+            //      sleep(10000);
 
-                String randomPass = getRandomPass(8);
-                $("#password").setValue(randomPass);
-                $("#repeatPassword").setValue(randomPass);
-
-            });
-
-sleep(10000);
+            //Вбиваем пароль
+            String randomPass = getRandomPass(8);
+            $("#password").setValue(randomPass);
+            $("#repeatPassword").setValue(randomPass);
 
 
-//            step("Fill the registration form", ()-> {
-//                $("#signup").click();
-//                $("#first-step-submit").shouldBe(visible);
-//                $("#fname").val("fname");
-//
-//
-//                $("Login input").setValue(DEFAULT_LOGIN);
-//                $("Password input").setValue(DEFAULT_PASSWORD);
-//                $("Remember me checkbox").click();
-//                $("Login button").click();
-//            });
-//
-//            step("Verify successful authorization", ()-> {
-//                $(byTestId("Authorization form")).shouldNot(exist);
-//                $(byTestId("Header label")).shouldHave(text("Hello, Alex!"));
-//                $$(byTestId("Private content"))
-//                        .shouldHaveSize(2)
-//                        .shouldHave(texts("Here is your private content #1", "and private content #2"));
-//            });
-        }
- }
+        });
+
+        sleep(10000);
+
+
+    }
+}

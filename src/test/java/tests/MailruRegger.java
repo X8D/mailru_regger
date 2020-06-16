@@ -17,76 +17,86 @@ package tests;
         import static com.codeborne.selenide.Condition.visible;
         import static com.codeborne.selenide.Selectors.*;
         import static com.codeborne.selenide.Selenide.*;
+        import static helpers.Environment.mailruUrl;
         import static io.qameta.allure.Allure.step;
         import static utils.RandomUtils.*;
 
 @Epic("QA.GURU automation course")
         @Story("Mail.ru regger")
         @Tag("regger")
-        @Feature("Регистрация аккаунтов mail.ru")
-        public class MailruRegger {
-
-
-//       @BeforeEach
-////        void beforeEach() {
-////        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
-////        Configuration.remote = "http://" + System.getProperty("selenoid_url") + ":4444/wd/hub/";
-////        }
-//
-//       public void initSelenideListener() {
-//           SelenideLogger.addListener("allure", new AllureSelenide().screenshots(true));
-//       }
+        @Feature("Check 1st step account registration mail.ru - CAPTCHA test")
+public class MailruRegger extends TestBase {
 
     @Test
     @Description("Registration emails")
     @DisplayName("Register new email account")
     void successfulReg() {
         step("Go to mail.ru and check homepage", () -> {
-            open("https://mail.ru");
+            open(mailruUrl);
             $("#signup").shouldBe(visible);
 
         });
 
         step("Fill form and register", () -> {
-            $("#signup").click();
-            switchTo().window(1);
-            $("button[type='submit']").shouldBe(visible);
+                    $("#signup").click();
+                    switchTo().window(1);
+                    $("button[type='submit']").shouldBe(visible);
+                });
 
-            //Вбиваем имя и фамилия
-            String randomName = getRandomName(6);
-            $("#fname").setValue(randomName);
-            String randomLastName = getRandomName(7);
-            $("#lname").setValue(randomLastName);
+        step("Enter First and Last name", () -> {
+                    String randomName = getRandomName(6);
+                    $("#fname").setValue(randomName);
+                    String randomLastName = getRandomName(7);
+                    $("#lname").setValue(randomLastName);
+         });
 
-            step("Выбираем день рождения", () -> {
+        step("Enter birthday", () -> {
                 $(by("data-test-id","birth-date__day")).click();
                 int randomDay = getRandomInt(1, 28);
                 $(by("data-test-id", "select-value:" + randomDay)).click();
-            });
-            //Выбираем месяц рождения
+         });
+
+        step("Enter birthday month", () -> {
             $(by("data-test-id","birth-date__month")).click();
             int randomMonth = getRandomInt(1, 12);
             $(by("data-test-id", "select-value:" + randomMonth)).click();
-            //Выбираем год рождения
+        });
+
+        step("Enter birthday year", () -> {
             $(by("data-test-id","birth-date__year")).click();
             int randomYear = getRandomInt(1950, 2000);
             $(by("data-test-id", "select-value:" + randomYear)).click();
+        });
 
-            //random Gender checkbox
+        step("Set random Gender checkbox", () -> {
             int genderInputIndex = getRandomInt(0, 1);
             $(by("data-test-id", "gender-form-field-inner"))
                     .$("label", genderInputIndex).click();
 //            $("[data-test-id='gender-form-field-inner'] label", genderInputIndex).click();
-            //      sleep(10000);
+        });
 
-            //Вбиваем пароль
+        step("Set login email", () -> {
+            $("#aaa__input").setValue("gfgdfggewgfdg");
+        });
+
+        step("Set random password", () -> {
             String randomPass = getRandomPass(8);
             $("#password").setValue(randomPass);
             $("#repeatPassword").setValue(randomPass);
-
-
         });
 
+        step("Click to no phone", () -> {
+        $(by("data-test-id","phone-number-switch-link")).click();
+        });
+
+        step("Click Register button", () -> {
+            $(by("data-test-id","first-step-submit")).click();
+        });
+
+        step("Check CAPTCHA image", () -> {
+            $(by("data-test-id","captcha-image")).shouldBe(visible);
+        });
+        
         sleep(10000);
 
 

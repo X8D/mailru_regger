@@ -41,7 +41,7 @@ public class MailruRegger extends TestBase {
                     $("#signup").click();
                     switchTo().window(1);
                     $("button[type='submit']").shouldBe(visible);
-                });
+        });
 
         step("Enter First and Last name", () -> {
                     String randomName = getRandomName(6);
@@ -68,7 +68,7 @@ public class MailruRegger extends TestBase {
             $(by("data-test-id", "select-value:" + randomYear)).click();
         });
 
-        step("Set random Gender checkbox", () -> {
+        step("Set random gender checkbox", () -> {
             int genderInputIndex = getRandomInt(0, 1);
             $(by("data-test-id", "gender-form-field-inner"))
                     .$("label", genderInputIndex).click();
@@ -76,7 +76,8 @@ public class MailruRegger extends TestBase {
         });
 
         step("Set login email", () -> {
-            $("#aaa__input").setValue("gfgdfggewgfdg");
+            String randomPass = getRandomPass(8);
+            $("#aaa__input").setValue(randomPass);
         });
 
         step("Set random password", () -> {
@@ -96,7 +97,7 @@ public class MailruRegger extends TestBase {
         step("Check CAPTCHA image", () -> {
             $(by("data-test-id","captcha-image")).shouldBe(visible);
         });
-        
+
         sleep(10000);
 
 

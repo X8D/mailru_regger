@@ -11,22 +11,19 @@ package tests;
         import org.junit.jupiter.api.DisplayName;
         import org.junit.jupiter.api.Tag;
         import org.junit.jupiter.api.Test;
-        import org.openqa.selenium.By;
 
-        import static com.codeborne.selenide.Condition.exist;
         import static com.codeborne.selenide.Condition.visible;
         import static com.codeborne.selenide.Selectors.*;
         import static com.codeborne.selenide.Selenide.*;
-        import static helpers.Environment.mailruUrl;
         import static io.qameta.allure.Allure.step;
         import static utils.RandomUtils.*;
 
-@Epic("QA.GURU automation course")
+        @Epic("QA.GURU automation course")
         @Story("Mail.ru regger")
         @Tag("regger")
         @Feature("Check 1st step account registration mail.ru - CAPTCHA test")
-//public class MailruRegger extends TestBase {
-    public class MailruRegger   {
+  public class MailruRegger extends TestBase {
+//   public class MailruRegger   {
 
     @BeforeEach
     void beforeEach() {
@@ -39,7 +36,7 @@ package tests;
     @DisplayName("Register new email account")
     void successfulReg() {
         step("Go to mail.ru and check homepage", () -> {
-            open(mailruUrl);
+            open("https://mail.ru");
             $("#signup").shouldBe(visible);
 
         });
@@ -83,7 +80,7 @@ package tests;
         });
 
         step("Set login email", () -> {
-            String randomPass = getRandomPass(8);
+            String randomPass = getRandomPass(9);
             $("#aaa__input").setValue(randomPass);
         });
 
@@ -105,7 +102,7 @@ package tests;
             $(by("data-test-id","captcha-image")).shouldBe(visible);
         });
 
-        sleep(10000);
+//        sleep(10000);
 
 
     }

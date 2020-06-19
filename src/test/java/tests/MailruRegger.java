@@ -15,6 +15,7 @@ package tests;
         import static com.codeborne.selenide.Condition.visible;
         import static com.codeborne.selenide.Selectors.*;
         import static com.codeborne.selenide.Selenide.*;
+        import static helpers.Environment.mailUrl;
         import static io.qameta.allure.Allure.step;
         import static utils.RandomUtils.*;
 
@@ -36,7 +37,7 @@ package tests;
     @DisplayName("Register new email account")
     void successfulReg() {
         step("Go to mail.ru and check homepage", () -> {
-            open("https://mail.ru");
+            open(mailUrl);
             $("#signup").shouldBe(visible);
 
         });

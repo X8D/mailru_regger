@@ -22,14 +22,14 @@ package tests;
         @Story("Mail.ru regger")
         @Tag("regger")
         @Feature("Check 1st step account registration mail.ru - CAPTCHA test")
-  public class MailruRegger extends TestBase {
-//   public class MailruRegger   {
+ // public class MailruRegger extends TestBase {
+   public class MailruRegger   {
 
-    @BeforeEach
-    void beforeEach() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
-        Configuration.remote = "https://" + System.getProperty("selenoid_url") + ":4444/wd/hub/";
-    }
+//    @BeforeEach
+//    void beforeEach() {
+//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
+//        Configuration.remote = "https://" + System.getProperty("selenoid_url") + ":4444/wd/hub/";
+//    }
 
     @Test
     @Description("Registration emails")

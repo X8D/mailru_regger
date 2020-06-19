@@ -1,37 +1,26 @@
 package tests;
 
-        import com.codeborne.selenide.Configuration;
-        import com.codeborne.selenide.logevents.SelenideLogger;
-        import io.qameta.allure.Description;
-        import io.qameta.allure.Epic;
-        import io.qameta.allure.Feature;
-        import io.qameta.allure.Story;
-        import io.qameta.allure.selenide.AllureSelenide;
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.DisplayName;
-        import org.junit.jupiter.api.Tag;
-        import org.junit.jupiter.api.Test;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-        import static com.codeborne.selenide.Condition.visible;
-        import static com.codeborne.selenide.Selectors.*;
-        import static com.codeborne.selenide.Selenide.*;
-        import static helpers.Environment.mailUrl;
-        import static io.qameta.allure.Allure.step;
-        import static utils.RandomUtils.*;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.by;
+import static com.codeborne.selenide.Selenide.*;
+import static helpers.Environment.mailUrl;
+import static io.qameta.allure.Allure.step;
+import static utils.RandomUtils.*;
 
-        @Epic("QA.GURU automation course")
-        @Story("Mail.ru regger")
-        @Tag("regger")
-        @Feature("Check 1st step account registration mail.ru - CAPTCHA test")
- public class MailruRegger extends TestBase {
-  // public class MailruRegger   {
 
-    @BeforeEach
-    void beforeEach() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
-        Configuration.remote = "https://" + System.getProperty("selenoid_url") + ":4444/wd/hub/";
-    }
-
+@Epic("QA.GURU automation course")
+@Feature("Check 1st step account registration mail.ru - CAPTCHA test")
+@Story("Mail.ru regger")
+@Tag("regger")
+public class MailruRegistrationTests extends TestBase {
     @Test
     @Description("Registration emails")
     @DisplayName("Register new email account")
@@ -77,7 +66,7 @@ package tests;
             int genderInputIndex = getRandomInt(0, 1);
             $(by("data-test-id", "gender-form-field-inner"))
                     .$("label", genderInputIndex).click();
-//            $("[data-test-id='gender-form-field-inner'] label", genderInputIndex).click();
+    //            $("[data-test-id='gender-form-field-inner'] label", genderInputIndex).click();
         });
 
         step("Set login email", () -> {
@@ -103,7 +92,7 @@ package tests;
             $(by("data-test-id","captcha-image")).shouldBe(visible);
         });
 
-//        sleep(10000);
+    //        sleep(10000);
 
 
     }

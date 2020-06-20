@@ -18,8 +18,8 @@ import static utils.RandomUtils.*;
 
 @Epic("QA.GURU automation course")
 @Feature("Check 1st step account registration mail.ru - CAPTCHA test")
-@Story("Mail.ru regger")
-@Tag("regger")
+@Story("Fill form registration Mail.ru")
+@Tag("mailru")
 public class MailruRegistrationTests extends TestBase {
     @Test
     @Description("Registration emails")

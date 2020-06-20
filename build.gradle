@@ -48,6 +48,6 @@ tasks.withType(Test) {
 
 task tests(type: Test) {
     useJUnitPlatform {
-        includeTags 'regger'
+        includeTags 'mailru'
     }
 }

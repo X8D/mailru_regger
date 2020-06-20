@@ -75,7 +75,7 @@ public class MailruRegistrationTests extends TestBase {
         });
 
         step("Set random password", () -> {
-            String randomPass = getRandomPass(8);
+            String randomPass = getRandomPass(10);
             $("#password").setValue(randomPass);
             $("#repeatPassword").setValue(randomPass);
         });

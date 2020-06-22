@@ -18,17 +18,17 @@ import static utils.RandomUtils.*;
 
 @Epic("QA.GURU automation course")
 @Feature("Check 1st step account registration mail.ru - CAPTCHA test")
-@Story("Fill form registration Mail.ru")
 @Tag("mailru")
 public class MailruRegistrationTests extends TestBase {
+
     @Test
+    @Story("Fill form registration Mail.ru")
     @Description("Registration emails")
     @DisplayName("Register new email account")
     void successfulReg() {
         step("Go to mail.ru and check homepage", () -> {
             open(mailUrl);
             $("#signup").shouldBe(visible);
-
         });
 
         step("Fill form and register", () -> {

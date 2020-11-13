@@ -1,8 +1,11 @@
 package drivers;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.WebDriverProvider;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -12,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import static com.codeborne.selenide.Browsers.CHROME;
+import static com.codeborne.selenide.FileDownloadMode.PROXY;
 import static helpers.Environment.remoteDriverUrl;
 
 
@@ -25,6 +29,8 @@ public class CustomWebDriver implements WebDriverProvider {
 
         capabilities.setCapability(ChromeOptions.CAPABILITY, getChromeOptions());
         WebDriverManager.chromedriver().setup();
+        Configuration.proxyEnabled = true;
+        Configuration.fileDownload = PROXY;
 
         if(remoteDriverUrl != null) {
             return new RemoteWebDriver(getRemoteWebdriverUrl(), capabilities);

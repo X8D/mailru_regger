@@ -92,7 +92,10 @@ public class MailruRegistrationTests extends TestBase {
             $(by("data-test-id","captcha-image")).shouldBe(visible);
         });
 
-    //        sleep(10000);
+        step("Save CAPTCHA image", () -> {
+            $(by("data-test-id","captcha-image")).download();
+        });
+            sleep(10000);
 
 
     }

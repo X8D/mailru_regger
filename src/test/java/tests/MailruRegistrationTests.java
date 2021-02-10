@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -8,12 +9,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.FileDownloadMode.PROXY;
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selenide.*;
 import static helpers.Environment.mailUrl;
 import static io.qameta.allure.Allure.step;
 import static utils.RandomUtils.*;
+
 
 
 @Epic("QA.GURU automation course")
@@ -27,12 +32,14 @@ public class MailruRegistrationTests extends TestBase {
     @DisplayName("Register new email account")
     void successfulReg() {
         step("Go to mail.ru and check homepage", () -> {
+            Configuration.proxyEnabled = true;
+            Configuration.fileDownload = PROXY;
             open(mailUrl);
-            $("#signup").shouldBe(visible);
+            $(".create-button").shouldBe(visible);
         });
 
         step("Fill form and register", () -> {
-                    $("#signup").click();
+                    $(".create-button").click();
                     switchTo().window(1);
                     $("button[type='submit']").shouldBe(visible);
         });
@@ -93,8 +100,9 @@ public class MailruRegistrationTests extends TestBase {
         });
 
         step("Save CAPTCHA image", () -> {
-            $(by("data-test-id","captcha-image")).download();
+            File captcha = $(by("data-test-id","captcha-image")).download();
         });
+
             sleep(10000);
 
 

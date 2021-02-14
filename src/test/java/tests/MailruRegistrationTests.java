@@ -10,10 +10,13 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.FileDownloadMode.PROXY;
+import static com.codeborne.selenide.FileDownloadMode.FOLDER;
 import static com.codeborne.selenide.Selectors.by;
+import static com.codeborne.selenide.Selectors.byTitle;
 import static com.codeborne.selenide.Selenide.*;
 import static helpers.Environment.mailUrl;
 import static io.qameta.allure.Allure.step;
@@ -37,6 +40,7 @@ public class MailruRegistrationTests extends TestBase {
             open(mailUrl);
             $(".create-button").shouldBe(visible);
         });
+
 
         step("Fill form and register", () -> {
                     $(".create-button").click();
@@ -100,8 +104,9 @@ public class MailruRegistrationTests extends TestBase {
         });
 
         step("Save CAPTCHA image", () -> {
-            File captcha = $(by("data-test-id","captcha-image")).download();
+            File downloadedFile = $(by("data-test-id","captcha-image")).download();
         });
+
 
             sleep(10000);
 

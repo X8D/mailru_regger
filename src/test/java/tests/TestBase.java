@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 
+import static com.codeborne.selenide.Configuration.downloadsFolder;
+import static com.codeborne.selenide.Configuration.timeout;
 import static helpers.AttachmentsHelper.*;
 
 
@@ -23,6 +25,8 @@ class TestBase {
     void beforeEach() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true));
         Configuration.browser = CustomWebDriver.class.getName();
+        downloadsFolder = "build/downloads";
+        timeout = 30000;
     }
 
     @AfterEach
